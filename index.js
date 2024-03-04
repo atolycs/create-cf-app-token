@@ -7,11 +7,15 @@ import run from "./src/main.js"
 core.info(`==> Reading Cloudflare setting...`)
 
 // Token setup
-const cf_auth_token = core.getInput("cf_token") || core.getInput("cf-token")
+const cf_account = {
+    "token": core.getInput("cf_token") || core.getInput("cf-token"),
+}
+
 const octokit_token = core.getInput("token")
 
 const octokit = github.getOctokit(octokit_token)
 
+console.log(cf_account)
 
 //core.info(`==> Setup Cloudflare`)
 
@@ -26,9 +30,8 @@ const octokit = github.getOctokit(octokit_token)
 //          console.log(res)
 //      })
 
-
 try {
-    run(core, octokit, cf_auth_token, fetchOptions)
-} catch(e) {
-    core.setFailed(e.message)
-}
+     run(core, octokit, cf_account, fetchOptions)
+ } catch(e) {
+     core.setFailed(e.message)
+ }
