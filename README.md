@@ -4,6 +4,7 @@
 
 ## Inputs
 `cf-token`: Cloudflare Token Generate Token
+
 `token` : Github App Token (default `github.token`)
 
 ## Outputs
