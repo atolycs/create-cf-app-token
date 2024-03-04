@@ -1,0 +1,9 @@
+name: 'Cloudflare Temporaly Token Generator'
+description: 'Github action for creating a Cloudflare Access Token'
+author: "Atolycs"
+
+inputs:
+  cf-token:
+    description: "Cloudflare Token Generation Only Token"
+    requried: true
+  
