@@ -1,18 +1,22 @@
-/**
- * 
- * @param {import("@actions/core")} core 
- * @param {import("cloudflare")} cf
- * @param {*} cf_auth_token 
- */
 
-
-async function run(core, fetch_opts) {
+async function run(core, 
+                   octokit,
+                   cf_auth_token,
+                   fetch_opts) {
     core.info(`==> Checking API Token Generate Only Token...`)
     
-    try {
-        fetch()
-    } catch(e) {
-        throw new TokenError(`==> Token is Revoked. check your api token.`)
-    }
+    fetch(fetch_opts.baseUri + "/user/tokens/verify", {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${cf_auth_token}`
+                }
+            }).then((response) => {
+                if ( response.status != "200") {
+                   core.setFailed(`==> Cloudflare Error. Try again after 5 min.`)
+                }
+            })
 
 }
+
+export default run

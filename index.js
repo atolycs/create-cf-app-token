@@ -2,7 +2,7 @@ import core from "@actions/core"
 import github from "@actions/github"
 import fetchOptions from "./src/lib/fetch-options.js"
 
-//import { run } from "./src/main"
+import run from "./src/main.js"
 
 core.info(`==> Reading Cloudflare setting...`)
 
@@ -13,23 +13,22 @@ const octokit_token = core.getInput("token")
 const octokit = github.getOctokit(octokit_token)
 
 
-core.info(`==> Setup Cloudflare`)
+//core.info(`==> Setup Cloudflare`)
 
-fetch(fetchOptions.baseUri + "/user/tokens/verify", {
-         method: "GET",
-         headers: {
-             'Content-Type': 'application/json',
-             Authorization: `Bearer ${cf_auth_token}`
-        }
-    })
-     .then((res) => {
-         console.log(res)
-     })
+// fetch(fetchOptions.baseUri + "/user/tokens/verify", {
+//          method: "GET",
+//          headers: {
+//              'Content-Type': 'application/json',
+//              Authorization: `Bearer ${cf_auth_token}`
+//         }
+//     })
+//      .then((res) => {
+//          console.log(res)
+//      })
 
-//
-// try {
-//     run()
-// } catch(e) {
-//     core.setFailed(e.message)
-// }
-//
+
+try {
+    run(core, octokit, cf_auth_token, fetchOptions)
+} catch(e) {
+    core.setFailed(e.message)
+}
