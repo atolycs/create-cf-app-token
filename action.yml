@@ -6,4 +6,16 @@ inputs:
   cf-token:
     description: "Cloudflare Token Generation Only Token"
     requried: true
-  
+  token:
+    description: "Github Token"
+    requried: false
+    default: ${{ github.token }}
+
+outputs:
+  cfp-token:
+    description: "Cloudflare Pages Access Token"
+
+runs:
+  using: "node20"
+  main: "dist/index.cjs"
+  post: "dist/post.cjs"
